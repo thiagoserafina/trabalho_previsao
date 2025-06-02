@@ -14,18 +14,27 @@ def obter_previsao(cidade: str):
         if resposta.status_code == 200:
             previsao = {
                 "temperatura": dados['main']['temp'],
+                "maxima": dados['main']['temp_max'],
+                "minima": dados['main']['temp_min'],
+                "sensacao": dados['main']['feels_like'],
                 "umidade": dados['main']['humidity'],
                 "condicao": dados['weather'][0]['description'].capitalize()
             }
         else:
             previsao = {
                 "temperatura": "Não disponível",
+                "maxima": "Não disponível",
+                "minima": "Não disponível",
+                "sensacao": "Não disponível",
                 "umidade": "Não disponível",
                 "condicao": dados.get('message', 'Cidade não encontrada')
             }
     except Exception as e:
         previsao = {
             "temperatura": None,
+            "maxima": None,
+            "minima": None,
+            "sensacao": None,
             "umidade": None,
             "condicao": str(e)
         }

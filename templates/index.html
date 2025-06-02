@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previsão do Tempo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        #container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #resultado {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        #resultado.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .weather-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .weather-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .weather-label {
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .weather-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .loading {
+            background: #f8f9fa;
+            color: #667eea;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            display: none;
+            animation: pulse 1.5s infinite;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        .weather-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 480px) {
+            #container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <h2>🌤️ Previsão do Tempo</h2>
+
+    <div class="input-group">
+        <label for="cidade">Digite o nome da cidade:</label>
+        <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo" required>
+    </div>
+
+    <button onclick="buscarPrevisao()">🔍 Buscar Previsão</button>
+
+    <div id="loading" class="loading">
+        <div class="weather-icon">⏳</div>
+        <strong>Buscando informações...</strong>
+    </div>
+
+    <div id="resultado"></div>
+</div>
+
+<script>
+    async function buscarPrevisao() {
+        const cidade = document.getElementById("cidade").value.trim();
+
+        if (!cidade) {
+            alert("Por favor, digite o nome de uma cidade!");
+            return;
+        }
+
+        const loading = document.getElementById("loading");
+        const resultado = document.getElementById("resultado");
+
+        // Mostrar loading
+        loading.classList.add("show");
+        resultado.classList.remove("show");
+
+        try {
+            const resposta = await fetch("/previsao", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({cidade})
+            });
+
+            const dados = await resposta.json();
+
+            loading.classList.remove("show");
+
+            const icone = getWeatherIcon(dados.condicao);
+
+            resultado.innerHTML = `
+                <div class="weather-icon">${icone}</div>
+                <div class="weather-item">
+                    <span class="weather-label">Temperatura:</span>
+                    <span class="weather-value">${dados.temperatura}°C</span>
+                </div>
+                <div class="weather-item">
+                    <span class="weather-label">Máxima:</span>
+                    <span class="weather-value">${dados.maxima}°C</span>
+                </div>
+                <div class="weather-item">
+                    <span class="weather-label">Mínima:</span>
+                    <span class="weather-value">${dados.minima}°C</span>
+                </div>
+                <div class="weather-item">
+                    <span class="weather-label">Sensação Térmica:</span>
+                    <span class="weather-value">${dados.sensacao}°C</span>
+                </div>
+                <div class="weather-item">
+                    <span class="weather-label">Umidade:</span>
+                    <span class="weather-value">${dados.umidade}%</span>
+                </div>
+                <div class="weather-item">
+                    <span class="weather-label">Condição:</span>
+                    <span class="weather-value">${dados.condicao}</span>
+                </div>
+            `;
+
+            resultado.classList.add("show");
+
+        } catch (error) {
+            loading.classList.remove("show");
+            resultado.innerHTML = `
+                <div style="background: #ff6b6b; color: white; padding: 20px; border-radius: 15px;">
+                    <div class="weather-icon">❌</div>
+                    <strong>Erro ao buscar previsão!</strong><br>
+                    Verifique o nome da cidade e tente novamente.
+                </div>
+            `;
+            resultado.classList.add("show");
+        }
+    }
+
+    function getWeatherIcon(condicao) {
+        const condicaoLower = condicao.toLowerCase();
+
+        if (condicaoLower.includes('sol') || condicaoLower.includes('limpo')) {
+            return '☀️';
+        } else if (condicaoLower.includes('chuva') || condicaoLower.includes('chuvoso')) {
+            return '🌧️';
+        } else if (condicaoLower.includes('nuvem') || condicaoLower.includes('nublado')) {
+            return '☁️';
+        } else if (condicaoLower.includes('tempestade') || condicaoLower.includes('trovoada')) {
+            return '⛈️';
+        } else if (condicaoLower.includes('neve')) {
+            return '❄️';
+        } else if (condicaoLower.includes('neblina') || condicaoLower.includes('névoa')) {
+            return '🌫️';
+        } else {
+            return '🌤️';
+        }
+    }
+
+    // Permitir busca ao pressionar Enter
+    document.getElementById("cidade").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            buscarPrevisao();
+        }
+    });
+</script>
+</body>
+</html>
