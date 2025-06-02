@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3f2a29c-335c-42e0-a56c-4e08a4eafeae" name="Changes" comment="add weather forecast server and client using XML-RPC">
+    <list default="true" id="c3f2a29c-335c-42e0-a56c-4e08a4eafeae" name="Changes" comment="add detailed weather forecast information and create web client using Flask">
       <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cliente_web.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/cody_project_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente_empresa.py" beforeDir="false" afterPath="$PROJECT_DIR$/cliente_empresa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servidor_clima.py" beforeDir="false" afterPath="$PROJECT_DIR$/servidor_clima.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente_empresa.py" beforeDir="false" afterPath="$PROJECT_DIR$/cliente_terminal.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +79,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.ToggleCodyToolWindowAfterMigration": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -90,7 +91,7 @@
   }
 }]]></component>
   <component name="RunManager" selected="Python.cliente_web">
-    <configuration name="cliente_empresa" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="cliente_terminal" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="trabalho_previsao" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -104,7 +105,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cliente_empresa.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\thiag\Projetos\trabalho_previsao\cliente_terminal.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -163,7 +164,7 @@
       <list>
         <item itemvalue="Python.cliente_web" />
         <item itemvalue="Python.servidor_clima" />
-        <item itemvalue="Python.cliente_empresa" />
+        <item itemvalue="Python.cliente_terminal" />
       </list>
     </recent_temporary>
   </component>
@@ -182,7 +183,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1748828364793</updated>
-      <workItem from="1748828365869" duration="2087000" />
+      <workItem from="1748828365869" duration="2412000" />
     </task>
     <task id="LOCAL-00001" summary="add weather forecast server and client using XML-RPC">
       <option name="closed" value="true" />
@@ -192,7 +193,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748829749063</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add detailed weather forecast information and create web client using Flask">
+      <option name="closed" value="true" />
+      <created>1748830516865</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1748830516865</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,11 +209,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add weather forecast server and client using XML-RPC" />
-    <option name="LAST_COMMIT_MESSAGE" value="add weather forecast server and client using XML-RPC" />
+    <MESSAGE value="add detailed weather forecast information and create web client using Flask" />
+    <option name="LAST_COMMIT_MESSAGE" value="add detailed weather forecast information and create web client using Flask" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/trabalho_previsao$cliente_web.coverage" NAME="cliente_web Coverage Results" MODIFIED="1748829983016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/trabalho_previsao$servidor_clima.coverage" NAME="servidor_clima Coverage Results" MODIFIED="1748829976657" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/trabalho_previsao$cliente_web.coverage" NAME="cliente_web Coverage Results" MODIFIED="1748830561387" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/trabalho_previsao$servidor_clima.coverage" NAME="servidor_clima Coverage Results" MODIFIED="1748830558090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/trabalho_previsao$cliente_empresa.coverage" NAME="cliente_empresa Coverage Results" MODIFIED="1748829523245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
